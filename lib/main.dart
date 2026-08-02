@@ -1,50 +1,32 @@
-import 'package:flutter/material.dart';
+name: Build APK
 
-void main() {
-  runApp(const SuperBurgerApp());
-}
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
-class SuperBurgerApp extends StatelessWidget {
-  const SuperBurgerApp({super.key});
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Super Burger POS',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
-    );
-  }
-}
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Super Burger POS 🍔'),
-        centerTitle: true,
-        backgroundColor: Colors.orangeAccent,
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.restaurant_menu, size: 80, color: Colors.orange),
-            SizedBox(height: 16),
-            Text(
-              'مرحباً بك في نظام كاشير سوبر برجر',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: super-burger-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
