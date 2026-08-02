@@ -22,9 +22,6 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Create Flutter skeleton
-        run: flutter create --overwrite .
-
       - name: Build APK
         run: flutter build apk --release
 
