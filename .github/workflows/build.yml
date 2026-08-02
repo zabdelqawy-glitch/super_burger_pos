@@ -20,11 +20,13 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
           channel: 'stable'
 
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Create Flutter skeleton if needed
+        run: |
+          if [ ! -f "android/build.gradle" ]; then
+            flutter create . --force
+          fi
 
       - name: Build APK
         run: flutter build apk --release
