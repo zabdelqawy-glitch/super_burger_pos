@@ -210,7 +210,7 @@ class _POSHomeScreenState extends State<POSHomeScreen> {
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
-                              padding: const EdgeInsets.horizontal(24, vertical: 12),
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                             ),
                             onPressed: cart.isEmpty
                                 ? null
