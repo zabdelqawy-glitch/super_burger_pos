@@ -113,7 +113,6 @@ class _POSHomeScreenState extends State<POSHomeScreen> {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-            // قائمة المنتجات
             Expanded(
               flex: 3,
               child: ListView.builder(
@@ -142,10 +141,7 @@ class _POSHomeScreenState extends State<POSHomeScreen> {
                 },
               ),
             ),
-
             const Divider(thickness: 2),
-
-            // سلة الطلبات والفاتورة
             Expanded(
               flex: 2,
               child: Container(
@@ -190,8 +186,6 @@ class _POSHomeScreenState extends State<POSHomeScreen> {
                               },
                             ),
                     ),
-                    
-                    // شريط الإجمالي والتأكيد
                     Container(
                       padding: const EdgeInsets.all(16.0),
                       color: Colors.white,
